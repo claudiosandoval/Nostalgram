@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -44,6 +45,21 @@ class UserController extends Controller
         $user->nick = $nick;
         $user->email = $email;
 
+        
+        //Subir la imagen del usuario
+        $image_path = $request->file('image_path');
+
+        if($image_path) { //comprobamos que nos llegue la imagen y utilizamos un objeto de laravel llamado storage (debemos importarlo en use)
+            $image_path_name = time().$image_path->getClientOriginalName(); //Utilizamos time para que sea un nombre unico en el caso de que los dos nombres sean iguales con time() funcion seran todos diferentes
+            Storage::disk('users')->put($image_path_name, File::get($image_path)); //De esta manera con disk accedemos a la carpeta users de la carpeta storage y con put guardamos esa imagen la cual necesita el nombre de la imagen original y el recurso(resource) del archivo
+
+            //Setear el nombre de la imagen path del objeto
+            $user->image = $image_path_name;
+        }
+        // var_dump($image_path);
+        // die();
+
+        
         //Ejecutar consulta y cambios en la base de datos
         $user->update();
         return redirect()->route('config')->with(
