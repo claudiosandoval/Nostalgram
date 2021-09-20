@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -13,8 +13,12 @@ class UserController extends Controller
     }
 
     public function update(Request $request) {
-        $id = Auth::user()->id;
 
+        //Conseguir usuario identificado
+        $user= \Auth::user();
+        $id = $user->id;
+
+        //Validacion del formulario
         $validate = $this->validate($request, [ //Metodo heredado de laravel que valida el string que se pasa por parametro
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
@@ -23,7 +27,7 @@ class UserController extends Controller
             // 'password' => ['required', 'string', 'min:6', 'confirmed'], //confirmed es para que sea igual en las 2 contraseñas
         ]);
         
-        
+        //Recoger los datos del formulario
         $name = $request->input('name');
         $surname = $request->input('surname');
         $nick = $request->input('nick');
@@ -34,5 +38,16 @@ class UserController extends Controller
         // var_dump($surname);
         // die();
         
+        //Asignar nuevos valores al objeto del usuario
+        $user->name = $name;
+        $user->surname = $surname;
+        $user->nick = $nick;
+        $user->email = $email;
+
+        //Ejecutar consulta y cambios en la base de datos
+        $user->update();
+        return redirect()->route('config')->with(
+            ['message' => 'Usuario actualizado correctamente']
+        );
     }
 }
