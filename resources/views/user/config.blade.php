@@ -4,19 +4,22 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-
-        @if(session('message'))
-        <div class="alert alert-success" role="alert">
-            Usuario actualizado correctamente
-        </div>
-        @endif
-
+            @include('includes.message')
             <div class="card">
                 <div class="card-header">Configuracion de mi cuenta</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ action('UserController@update') }}" enctype="multipart/form-data">
                         @csrf
+
+                        <div class="form-group row d-flex justify-content-center nick-config">
+                            @if(Auth::user()->image)
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ route('user.avatar', ['filename' => Auth::user()->image]) }}" alt="" class="avatar">
+                                    <p class="nombre-avatar">{{ Auth::user()->nick }}</p>
+                                </div>
+                            @endif
+                        </div>
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -75,6 +78,8 @@
                         </div>
 
                         <div class="form-group row">
+
+
                             <label for="image_path" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
 
                             <div class="col-md-6">

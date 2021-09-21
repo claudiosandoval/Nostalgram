@@ -55,5 +55,12 @@ Route::get('/', function () {
 Auth::routes(); 
 
 Route::get('/', 'HomeController@index')->name('home');
+
+//Configuracion de usuario
 Route::get('/configuracion', 'UserController@config')->name('config'); //El name es el nombre de la ruta que es llamada en los enlaces como {{ route('nombre') }}
 Route::post('/user/update', 'UserController@update');
+Route::get('/user/avatar/{filename}', 'UserController@getImage')->name('user.avatar');
+
+//Publicar foto 
+Route::get('/image/public', 'ImageController@create')->name('image.public');
+Route::post('/image/save', 'ImageController@publicar')->name('image.save');

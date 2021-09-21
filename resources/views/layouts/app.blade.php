@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -52,12 +53,16 @@
                             @endif
                         @else
                             <li>
-                                <a class="nav-link" href="">Inicio</a>
+                                <a class="nav-link" href="{{ route('home') }}">Inicio</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="">Subir Imagem</a>
+                                <a class="nav-link" href="{{ route('image.public') }}">Subir imagen</a>
+                            </li>
+                            <li>
+                                <img src="{{ route('user.avatar', ['filename' => Auth::user()->image]) }}" alt="" class="avatar-nav">   
                             </li>
                             <li class="nav-item dropdown">
+                                
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -67,7 +72,7 @@
                                         Mi perfil
                                     </a>
                                     <a class="dropdown-item" href="{{ route('config') }}">
-                                        Configuración
+                                        Editar perfil
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
