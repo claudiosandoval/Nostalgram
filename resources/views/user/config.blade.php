@@ -15,7 +15,9 @@
                         <div class="form-group row d-flex justify-content-center nick-config">
                             @if(Auth::user()->image)
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ route('user.avatar', ['filename' => Auth::user()->image]) }}" alt="" class="avatar">
+                                    <div class="avatar d-flex align-items-center">
+                                        <img src="{{ route('user.avatar', ['filename' => Auth::user()->image]) }}" alt="">
+                                    </div>
                                     <p class="nombre-avatar">{{ Auth::user()->nick }}</p>
                                 </div>
                             @endif

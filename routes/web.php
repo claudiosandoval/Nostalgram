@@ -52,15 +52,17 @@ Route::get('/', function () {
 
 
 
-Auth::routes(); 
+Auth::routes(); //Routa creada con el comando php artisan make:auth (crea las rutas necesarias para los controladores de la carpeta auth)
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home'); //Ruta del inicio de la pagina
 
 //Configuracion de usuario
 Route::get('/configuracion', 'UserController@config')->name('config'); //El name es el nombre de la ruta que es llamada en los enlaces como {{ route('nombre') }}
-Route::post('/user/update', 'UserController@update');
-Route::get('/user/avatar/{filename}', 'UserController@getImage')->name('user.avatar');
+Route::post('/user/update', 'UserController@update'); //Actualiza el usuario
+Route::get('/user/avatar/{filename}', 'UserController@getImage')->name('user.avatar'); //Obtiene la imagen para el avatar del perfil de usuario
 
 //Publicar foto 
-Route::get('/image/public', 'ImageController@create')->name('image.public');
-Route::post('/image/save', 'ImageController@publicar')->name('image.save');
+Route::get('/image/public', 'ImageController@create')->name('image.public'); //Ruta que retorna la vista para publicar una foto
+Route::post('/image/save', 'ImageController@publicar')->name('image.save'); //Ruta para guardar la foto subida
+Route::get('/image/{filename}', 'ImageController@getImage')->name('get.publicacion');
+Route::get('/image/{id}', 'ImageController@detail')->name('image.detail');

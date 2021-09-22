@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Http\Response;
 
 class ImageController extends Controller
 {
@@ -26,7 +27,7 @@ class ImageController extends Controller
         //Validacion
         $validate = $this->validate($request, [
             'description' => 'required',
-            'image_path' => 'required|mimes:jpg,jpeg,gif' //La tuberia sirve para concatenar mas validaciones
+            'image_path' => 'required|mimes:jpg,jpeg,gif,png' //La tuberia sirve para concatenar mas validaciones
             // 'image_path' => 'required|image' //Automaticamente la regla de validacion image de laravel valida que solo se puedan ingresar imagenes
         ]);
 
@@ -58,5 +59,19 @@ class ImageController extends Controller
 
         // var_dump($image);
         // die();
+    }
+
+    public function getImage($filename) {
+        $file = Storage::disk('images')->get($filename); //metodo get de storage para obtener la imagen
+
+        return new Response($file, 200); //Devuelve la imagen en una respuesta http
+    }
+
+    public function detail($id) {
+        $image = Image::find($id);
+
+        return view('image.detail', [
+            'image' => $image
+        ]);
     }
 }

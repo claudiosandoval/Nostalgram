@@ -5,7 +5,6 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             @include('includes.message')
-            @foreach($images as $image)
             <div class="card">
                 <div class="card-header" style="background-color:white">
                     @if($image->user->image)
@@ -14,7 +13,7 @@
                     <img src="{{ asset('images/no-disponible.jpg') }}" alt="sin imagen" class="avatar_inicio">
                     @endif
                     <a href=""><span class="nick_inicio">{{ $image->user->nick }}</span></a>
-                    <!-- @if(date('i') - date_format($image->created_at, 'i') == 1 && date('H') - date_format($image->created_at, 'H') == 0)
+                    @if(date('i') - date_format($image->created_at, 'i') == 1 && date('H') - date_format($image->created_at, 'H') == 0)
                     <p class="fecha_publicacion">Hace {{ date('i') - date_format($image->created_at, 'i') }} Minuto </p>
                     @elseif(date('i') - date_format($image->created_at, 'i') <= 59 && date('H') - date_format($image->created_at, 'H') == 0)
                     <p class="fecha_publicacion">Hace {{ date('i') - date_format($image->created_at, 'i') }} Minutos </p>
@@ -26,8 +25,7 @@
                     <p class="fecha_publicacion">Hace {{ date('d') - date_format($image->created_at, 'd') }} día </p>
                     @else
                     <p class="fecha_publicacion">Hace {{ date('d') - date_format($image->created_at, 'd') }} días </p>
-                    @endif -->
-                    <p class="fecha_publicacion">{{ FormatTime::LongTimeFilter($image->created_at) }}</p>
+                    @endif
                 </div>
                 <div class="card-body container_publicacion">
                     <img src="{{ route('get.publicacion', ['filename' => $image->image_path]) }}" alt="publicacion" class="publicacion">
@@ -47,13 +45,7 @@
                     </a>
                 </div>
             </div>
-            @endforeach
-        </div>
-    </div>
-    <!-- Paginacion  -->
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            {{ $images->links() }}
+           
         </div>
     </div>
 </div>

@@ -19,6 +19,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+    <!--Icons Bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    
 </head>
 <body>
     <div id="app">
@@ -59,7 +63,13 @@
                                 <a class="nav-link" href="{{ route('image.public') }}">Subir imagen</a>
                             </li>
                             <li>
-                                <img src="{{ route('user.avatar', ['filename' => Auth::user()->image]) }}" alt="" class="avatar-nav">   
+                                <div class="avatar-nav">
+                                    @if(Auth::user()->image)
+                                    <img src="{{ route('user.avatar', ['filename' => Auth::user()->image]) }}" alt="">   
+                                    @else
+                                    <img src="{{ asset('images/no-disponible.jpg') }}" alt="sin imagen">
+                                    @endif
+                                </div>
                             </li>
                             <li class="nav-item dropdown">
                                 
