@@ -106,7 +106,7 @@
 }
 
 .descripcion {
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 0px 20px;
 }
 
 .descripcion .comentarios {
@@ -125,7 +125,7 @@
 }
 
 .acciones_publicacion {
-    padding: 10px 0 0 10px;
+    padding: 20px 0 0 20px;
     font-size: 24px;
     position: relative;
 }
@@ -137,6 +137,36 @@
 
 .acciones_publicacion a:nth-child(2) {
     position: absolute;
-    top: 8px;
+    top: 17px;
     padding-left: 20px;
+}
+
+/* Detalle de la publicacion al ver los comentarios  */
+
+textarea {
+    resize: none;
+    width: 100% !important;
+    margin-left: 0px !important;
+    margin-top: 20px;
+}
+
+.public_comentario .form-control {
+    border-radius: 0px;
+    padding-left: 20px;
+}
+
+
+.public_comentario .form-control:focus {
+    border-color: #a1cbef !important;
+    outline: 0 none !important;
+    box-shadow: none;
+}
+
+.comentarios {
+     padding: 0px 20px 0 20px;
+     text-justify: initial;
+}
+
+.button_public_comment {
+    margin-top: 20px;
 }

@@ -13,7 +13,7 @@
                     <img src="{{ asset('images/no-disponible.jpg') }}" alt="sin imagen" class="avatar_inicio">
                     @endif
                     <a href=""><span class="nick_inicio">{{ $image->user->nick }}</span></a>
-                    @if(date('i') - date_format($image->created_at, 'i') == 1 && date('H') - date_format($image->created_at, 'H') == 0)
+                    <!-- @if(date('i') - date_format($image->created_at, 'i') == 1 && date('H') - date_format($image->created_at, 'H') == 0)
                     <p class="fecha_publicacion">Hace {{ date('i') - date_format($image->created_at, 'i') }} Minuto </p>
                     @elseif(date('i') - date_format($image->created_at, 'i') <= 59 && date('H') - date_format($image->created_at, 'H') == 0)
                     <p class="fecha_publicacion">Hace {{ date('i') - date_format($image->created_at, 'i') }} Minutos </p>
@@ -25,7 +25,8 @@
                     <p class="fecha_publicacion">Hace {{ date('d') - date_format($image->created_at, 'd') }} día </p>
                     @else
                     <p class="fecha_publicacion">Hace {{ date('d') - date_format($image->created_at, 'd') }} días </p>
-                    @endif
+                    @endif -->
+                    <p class="fecha_publicacion">{{ FormatTime::LongTimeFilter($image->created_at) }}</p>
                 </div>
                 <div class="card-body container_publicacion">
                     <img src="{{ route('get.publicacion', ['filename' => $image->image_path]) }}" alt="publicacion" class="publicacion">
@@ -40,9 +41,23 @@
                 <div class="descripcion">
                     <span class="nick"><a href="">{{ $image->user->nick }}</a></span>
                     <span class="texto">{{ $image->description }}</span>
-                    <a href="" class="comentarios">
-                        <p>Ver los {{ count($image->comments) }} comentarios</p>
-                    </a>
+                </div>
+                <div class="comentarios">
+                    <hr>
+                    <span>Claudio Sandoval: </span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis consequuntur earum minima iure similique cumque ducimus velit eligendi eum error.</span>
+                </div>
+                <div class="public_comentario">
+                    <form action="{{ route('comment.save') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="image_id" value="{{ $image->id }}">
+                        <textarea class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" id=""  placeholder="Agrega un comentario..." ></textarea>
+                        @if ($errors->has('content'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('content') }}</strong>
+                            </span>
+                        @endif
+                        <button class="form-control" class="button_public_comment" type="submit">Publicar</button>
+                    </form>
                 </div>
             </div>
            

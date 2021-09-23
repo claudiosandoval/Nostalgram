@@ -42,9 +42,9 @@
                 <div class="descripcion">
                     <span class="nick"><a href="">{{ $image->user->nick }}</a></span>
                     <span class="texto">{{ $image->description }}</span>
-                    <a href="" class="comentarios">
+                    <a href="{{ route('image.detail', ['id' => $image->id]) }}" class="comentarios">
                         <p>Ver los {{ count($image->comments) }} comentarios</p>
-                    </a>
+                    </a>        
                 </div>
             </div>
             @endforeach

@@ -65,4 +65,7 @@ Route::get('/user/avatar/{filename}', 'UserController@getImage')->name('user.ava
 Route::get('/image/public', 'ImageController@create')->name('image.public'); //Ruta que retorna la vista para publicar una foto
 Route::post('/image/save', 'ImageController@publicar')->name('image.save'); //Ruta para guardar la foto subida
 Route::get('/image/{filename}', 'ImageController@getImage')->name('get.publicacion');
-Route::get('/image/{id}', 'ImageController@detail')->name('image.detail');
+Route::get('/imagen/{id}', 'ImageController@detail')->name('image.detail');
+
+//Comentarios
+Route::post('/comment/save', 'CommentsController@saveComment')->name('comment.save');
