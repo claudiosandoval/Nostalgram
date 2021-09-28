@@ -34,7 +34,7 @@
                 </div>
                 <div class="acciones_publicacion">
                     <a href=""><i class="bi bi-heart"></i></a>
-                    <a href=""><i class="bi bi-chat"></i></a>
+                    <a href="{{ route('image.detail', ['id' => $image->id]) }}"><i class="bi bi-chat"></i></a>
                     
                     <a href="" class="float-right"><i class="bi bi-three-dots-vertical"></i></a>
                     <hr>
@@ -43,7 +43,13 @@
                     <span class="nick"><a href="">{{ $image->user->nick }}</a></span>
                     <span class="texto">{{ $image->description }}</span>
                     <a href="{{ route('image.detail', ['id' => $image->id]) }}" class="comentarios">
+                        @if(count($image->comments) == 1)
+                        <p>Ver comentario</p>   
+                        @elseif(count($image->comments) > 1)
                         <p>Ver los {{ count($image->comments) }} comentarios</p>
+                        @elseif(count($image->comments) == 0)
+                        <p></p>
+                        @endif
                     </a>        
                 </div>
             </div>
