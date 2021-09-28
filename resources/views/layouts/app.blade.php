@@ -22,6 +22,9 @@
 
     <!--Icons Bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Carattere&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
     
 </head>
 <body>

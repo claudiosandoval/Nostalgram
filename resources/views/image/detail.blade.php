@@ -44,7 +44,15 @@
                 </div>
                 <div class="comentarios">
                     <hr>
-                    <span>Claudio Sandoval: </span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis consequuntur earum minima iure similique cumque ducimus velit eligendi eum error.</span>
+                    @foreach($image->comments as $comment)
+                    <div class="comment_user">
+                        <span class="comment_nick">{{ $comment->user->nick }}: </span><span>{{ $comment->content }}</span>
+                        @if(Auth::check() && ($comment->user_id == Auth::user()->id || $comment->image->user_id == Auth::user()->id)) <!--  Auth::check() metodo que devuelve true si esta identificado / false -->
+                        <a href="{{ route('comment.delete', ['id' => $comment->id]) }}" class="delete_comment"><i class="bi bi-trash-fill"></i></a>
+                        @endif
+                        <p class="user_comment_fecha">{{ FormatTime::LongTimeFilter($comment->created_at) }}</p>
+                    </div>
+                    @endforeach
                 </div>
                 <div class="public_comentario">
                     <form action="{{ route('comment.save') }}" method="POST">

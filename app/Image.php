@@ -13,7 +13,7 @@ class Image extends Model
 
     //(Un solo modelo va a tener muchos comentarios)
     public function comments() {
-        return $this->hasMany('App\Comment'); //Devolverá un array de objetos de todos los comentarios // Esto laravel lo realiza de manera programatica por de tras y realiza las consultas necesarias para traer la consulta
+        return $this->hasMany('App\Comment')->orderBy('id', 'desc'); //Devolverá un array de objetos de todos los comentarios // Esto laravel lo realiza de manera programatica por de tras y realiza las consultas necesarias para traer la consulta
     }
 
     //Relacion One to Many (De uno a muchos)

@@ -44,4 +44,25 @@ class CommentsController extends Controller
         return redirect()->route('image.detail', ['id' => $image_id])->with(['message' => 'Has publicado tu comentario correctamente']);
 
     }
+
+    public function deleteComment($id) { //Funcion para borrar los comentarios en tus publicaciones
+        //recoger datos del usuario identificado
+        $user = \Auth::user();
+
+        //Conseguir objeto del comentario
+        $comment = Comment::find($id); //El metodo find de laravel retorna el objeto a consultar con el id
+
+        //Comrobar el dueño del comentario o de la publicacion
+        //Solo se podra eliminar:
+        //1.- Si el usuario esta identificado
+        //2.- Si el id del usuario del comentario es igual al usuario_id identificado 
+        //3.- y si el user_id de la imagen sea igual al user_id del usuario identificado
+        if($user && ($comment->user_id == $user->id || $comment->image->user_id == $user->id)) {
+            $comment->delete();
+
+            return redirect()->route('image.detail', ['id' => $comment->image->id])->with(['message' => 'Tu comentario se ha borrado']);
+        }else {
+            return redirect()->route('image.detail', ['id' => $comment->image->id])->with(['message' => 'El comentario no se ha elimianado']);
+        }
+    }
 }

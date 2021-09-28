@@ -1,4 +1,8 @@
 /* Nav */
+a.navbar-brand {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+}
 
 .navbar {
     background-color: #336699;
@@ -6,7 +10,7 @@
 
 .navbar a {
     color: white !important;
-}
+}   
 
 .dropdown-menu a {
     color: black !important;
@@ -169,4 +173,26 @@ textarea {
 
 .button_public_comment {
     margin-top: 20px;
+}
+
+.comentarios .comment_nick {
+    color: #3F7FBF;
+    font-weight: bold;
+}
+
+.comment_user {
+    margin-bottom: 10px;
+}
+
+.public_comentario button {
+    cursor: pointer;
+}
+
+.user_comment_fecha {
+    color: gray;
+}
+
+.comment_user .delete_comment {
+    color: gray;
+    float: right;
 }
