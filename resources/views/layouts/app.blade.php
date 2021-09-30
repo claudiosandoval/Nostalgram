@@ -88,6 +88,9 @@
                                     <a class="dropdown-item" href="{{ route('config') }}">
                                         Editar perfil
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('like.index') }}">
+                                        Favoritas
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
