@@ -32,11 +32,25 @@
                     <img src="{{ route('get.publicacion', ['filename' => $image->image_path]) }}" alt="publicacion" class="publicacion">
                 </div>
                 <div class="acciones_publicacion">
-                    <a href=""><i class="bi bi-heart"></i></a>
-                    <a href=""><i class="bi bi-chat"></i></a>
-                    
+                    <!-- Comprobar si el usuario le dio like a la publicacion  -->
+                    <?php $user_like = false ?>
+                    @foreach($image->likes as $like)
+                        @if($like->user->id == Auth::user()->id)
+                            <?php $user_like = true ?>  
+                        @endif
+                    @endforeach
+
+                    @if($user_like)
+                        <i class="bi bi-heart-fill heart_red btnlike" data-id="{{ $image->id }}"></i>
+                    @else
+                        <i class="bi bi-heart-fill btndislike" data-id="{{ $image->id }}"></i>
+                    @endif
+                    <a href="{{ route('image.detail', ['id' => $image->id]) }}"><i class="bi bi-chat-fill"></i></a>
                     <a href="" class="float-right"><i class="bi bi-three-dots-vertical"></i></a>
-                    <hr>
+                    <div class="me_gusta">
+                        <p class="count_likes" id="likes{{ $image->id }}">{{ count($image->likes) }} Me gusta</p>
+                    </div>
+                    <hr>        
                 </div>
                 <div class="descripcion">
                     <span class="nick"><a href="">{{ $image->user->nick }}</a></span>
@@ -48,10 +62,28 @@
                     <div class="comment_user">
                         <span class="comment_nick">{{ $comment->user->nick }}: </span><span>{{ $comment->content }}</span>
                         @if(Auth::check() && ($comment->user_id == Auth::user()->id || $comment->image->user_id == Auth::user()->id)) <!--  Auth::check() metodo que devuelve true si esta identificado / false -->
-                        <a href="{{ route('comment.delete', ['id' => $comment->id]) }}" class="delete_comment"><i class="bi bi-trash-fill"></i></a>
+                        <button class="delete_comment" data-toggle="modal" data-target="#modalEliminarComentario{{ $comment->id }}"><i class="bi bi-trash-fill"></i></button>
                         @endif
                         <p class="user_comment_fecha">{{ FormatTime::LongTimeFilter($comment->created_at) }}</p>
                     </div>
+                    <!-- Modal eliminar comentario -->
+                    <div class="modal fade" id="modalEliminarComentario{{ $comment->id }}" tabindex="-1" aria-labelledby="modalEliminarComentario" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Desea eliminar el comentario? {{ $comment->id }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <a href="{{ route('comment.delete', ['id' => $comment->id]) }}" type="button" class="btn btn-danger">Eliminar</a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin modal eliminar -->
                     @endforeach
                 </div>
                 <div class="public_comentario">

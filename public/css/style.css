@@ -136,13 +136,27 @@ a.navbar-brand {
 
 .acciones_publicacion a {
     color: gray;
-    margin-left: 10px;
 }
 
 .acciones_publicacion a:nth-child(2) {
     position: absolute;
-    top: 17px;
+    top: 18px;
     padding-left: 20px;
+}
+
+.heart_red { /* Boton de like en rojo */
+    color: rgb(237, 73, 86);
+}
+
+.btndislike {
+    color: grey;
+}
+
+.card .me_gusta {
+    margin: 10px 0 0 0px;
+    color: #3F7FBF;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 /* Detalle de la publicacion al ver los comentarios  */
@@ -169,6 +183,13 @@ textarea {
 .comentarios {
      padding: 0px 20px 0 20px;
      text-justify: initial;
+}   
+
+.comment_user button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
 }
 
 .button_public_comment {

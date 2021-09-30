@@ -64,9 +64,14 @@ Route::get('/user/avatar/{filename}', 'UserController@getImage')->name('user.ava
 //Publicar foto 
 Route::get('/image/public', 'ImageController@create')->name('image.public'); //Ruta que retorna la vista para publicar una foto
 Route::post('/image/save', 'ImageController@publicar')->name('image.save'); //Ruta para guardar la foto subida
-Route::get('/image/{filename}', 'ImageController@getImage')->name('get.publicacion');
-Route::get('/imagen/{id}', 'ImageController@detail')->name('image.detail');
+Route::get('/image/{filename}', 'ImageController@getImage')->name('get.publicacion'); //Obtener imagen para mostrar en las vistas mediante el nombre de ruta de la imagen (revisar controlador)
+Route::get('/imagen/{id}', 'ImageController@detail')->name('image.detail'); //Retorna la vista de detalle de la imagen
 
 //Comentarios
-Route::post('/comment/save', 'CommentsController@saveComment')->name('comment.save');
-Route::get('/comment/delete/{id}', 'CommentsController@deleteComment')->name('comment.delete');
+Route::post('/comment/save', 'CommentsController@saveComment')->name('comment.save'); //Guarda un comentario
+Route::get('/comment/delete/{id}', 'CommentsController@deleteComment')->name('comment.delete'); //Elimina un comentario
+
+//Likes
+Route::get('/like/{image_id}', 'LikeController@like')->name('like.save'); //Metodo para dar like a una publicacion
+Route::get('/dislike/{image_id}', 'LikeController@dislike')->name('like.delete'); //Metodo para dar dislike a una publicacion
+Route::get('/likes', 'LikeController@index')->name('like.index'); //Muestra todas las publicaciones a las que hemos dado like

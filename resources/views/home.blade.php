@@ -33,11 +33,25 @@
                     <img src="{{ route('get.publicacion', ['filename' => $image->image_path]) }}" alt="publicacion" class="publicacion">
                 </div>
                 <div class="acciones_publicacion">
-                    <a href=""><i class="bi bi-heart"></i></a>
-                    <a href="{{ route('image.detail', ['id' => $image->id]) }}"><i class="bi bi-chat"></i></a>
-                    
+                    <!-- Comprobar si el usuario le dio like a la publicacion  -->
+                    <?php $user_like = false ?>
+                    @foreach($image->likes as $like)
+                        @if($like->user->id == Auth::user()->id)
+                            <?php $user_like = true ?>  
+                        @endif
+                    @endforeach
+
+                    @if($user_like)
+                        <i class="bi bi-heart-fill heart_red btnlike" data-id="{{ $image->id }}"></i>
+                    @else
+                        <i class="bi bi-heart-fill btndislike" data-id="{{ $image->id }}"></i>
+                    @endif
+                    <a href="{{ route('image.detail', ['id' => $image->id]) }}"><i class="bi bi-chat-fill"></i></a>
                     <a href="" class="float-right"><i class="bi bi-three-dots-vertical"></i></a>
-                    <hr>
+                    <div class="me_gusta">
+                        <p class="count_likes" id="likes{{ $image->id }}">{{ count($image->likes) }} Me gusta</p>
+                    </div>
+                    <hr>        
                 </div>
                 <div class="descripcion">
                     <span class="nick"><a href="">{{ $image->user->nick }}</a></span>
