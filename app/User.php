@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'role', 'name', 'surname', 'nick', 'email', 'password',
+         'name', 'surname', 'nick', 'email', 'password',
     ];
 
     /**
@@ -40,6 +40,6 @@ class User extends Authenticatable
 
     //Relacion has many (1 a muchos)
     public function images() {
-        return $this->hasMany('App/Image'); //Buscara todas las imagenes cuyo usuario_id coincida con el id de la tabla usuario
+        return $this->hasMany('App\Image'); //Buscara todas las imagenes cuyo usuario_id coincida con el id de la tabla usuario
     }
 }

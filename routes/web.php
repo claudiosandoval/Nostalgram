@@ -60,6 +60,7 @@ Route::get('/', 'HomeController@index')->name('home'); //Ruta del inicio de la p
 Route::get('/configuracion', 'UserController@config')->name('config'); //El name es el nombre de la ruta que es llamada en los enlaces como {{ route('nombre') }}
 Route::post('/user/update', 'UserController@update'); //Actualiza el usuario
 Route::get('/user/avatar/{filename}', 'UserController@getImage')->name('user.avatar'); //Obtiene la imagen para el avatar del perfil de usuario
+Route::get('/perfil/{id}', 'UserController@perfil')->name('user.perfil'); //Redirige a la vista de mi perfil con las publicaciones del usuario identificado
 
 //Publicar foto 
 Route::get('/image/public', 'ImageController@create')->name('image.public'); //Ruta que retorna la vista para publicar una foto

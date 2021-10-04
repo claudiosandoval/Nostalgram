@@ -5,7 +5,7 @@
         @else
         <img src="{{ asset('images/no-disponible.jpg') }}" alt="sin imagen" class="avatar_inicio">
         @endif
-        <a href=""><span class="nick_inicio">{{ $image->user->nick }}</span></a>
+        <a href="{{ route('user.perfil', ['id' => $image->user->id]) }}"><span class="nick_inicio">{{ $image->user->nick }}</span></a>
         <!-- @if(date('i') - date_format($image->created_at, 'i') == 1 && date('H') - date_format($image->created_at, 'H') == 0)
         <p class="fecha_publicacion">Hace {{ date('i') - date_format($image->created_at, 'i') }} Minuto </p>
         @elseif(date('i') - date_format($image->created_at, 'i') <= 59 && date('H') - date_format($image->created_at, 'H') == 0)
@@ -46,7 +46,7 @@
         <hr>        
     </div>
     <div class="descripcion">
-        <span class="nick"><a href="">{{ $image->user->nick }}</a></span>
+        <span class="nick"><a href="{{ route('user.perfil', ['id' => $image->user->id]) }}">{{ $image->user->nick }}</a></span>
         <span class="texto">{{ $image->description }}</span>
         <a href="{{ route('image.detail', ['id' => $image->id]) }}" class="comentarios">
             @if(count($image->comments) == 1)

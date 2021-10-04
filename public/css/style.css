@@ -217,3 +217,55 @@ textarea {
     color: gray;
     float: right;
 }
+
+/* Perfil */
+
+.perfil .col-4 {
+    padding: 0;
+}
+
+.perfil .card {
+    margin: 0px;
+}
+
+.perfil .container_publicacion img {
+    object-fit: cover;
+    height: 15vw;
+    padding: 0.5vw;
+}
+
+.perfil_usuario img {
+    border-radius: 50%;
+    float: left;
+    width: 150px;
+}
+
+.perfil_usuario .nick {
+    font-size: 24px;
+    color: black;
+    float: left;
+    margin-left: 30px;
+}
+
+.perfil_usuario a {
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid #dbdbdb;
+    margin-top: 2px;
+    margin-left: 20px;
+    color: #262626;
+    border-radius: 5%;
+    padding: 5px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+/* Media querys */
+
+@media (max-width: 992px) {
+    .perfil_usuario img {
+        width: 17vw;
+    }
+  }
+
+

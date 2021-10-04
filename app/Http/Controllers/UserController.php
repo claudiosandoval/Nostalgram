@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\User;
 
 class UserController extends Controller
 {
@@ -77,5 +78,14 @@ class UserController extends Controller
         $file = Storage::disk('users')->get($filename); //metodo get de storage para obtener la imagen
 
         return new Response($file, 200); //Devuelve la imagen en una respuesta http
+    }
+
+    public function perfil($id) {
+
+        $user = User::find($id);
+
+        return view('user.perfil', [
+            'user' => $user
+        ]);
     }
 }
