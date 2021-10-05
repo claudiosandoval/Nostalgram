@@ -46,7 +46,24 @@
                         <i class="bi bi-heart-fill btndislike" data-id="{{ $image->id }}"></i>
                     @endif
                     <a href="{{ route('image.detail', ['id' => $image->id]) }}"><i class="bi bi-chat-fill"></i></a>
-                    <a href="" class="float-right"><i class="bi bi-three-dots-vertical"></i></a>
+                    <!-- Comprobar si el usuario puede o no eliminar su publicacion  -->
+                    @if(Auth::user() && Auth::user()->id == $image->user->id)
+                    <i class="bi bi-three-dots-vertical float-right" style="color:grey; cursor:pointer" data-toggle="modal" data-target="#modal_detail_publicacion"></i>
+
+                    <!-- Modal -->
+                    <div class="modal fade modal_detail_publicacion" id="modal_detail_publicacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <ul>
+                                        <li><a href="">Editar publicación</a></li>
+                                        <li><a href="{{ route('image.delete', ['id' => $image->id]) }}" class="text-danger">Borrar Publicación</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     <div class="me_gusta">
                         <p class="count_likes" id="likes{{ $image->id }}">{{ count($image->likes) }} Me gusta</p>
                     </div>

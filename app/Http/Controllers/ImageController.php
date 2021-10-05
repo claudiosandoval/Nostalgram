@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Image;
+use App\Like;
+use App\Comment;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
@@ -73,5 +75,47 @@ class ImageController extends Controller
         return view('image.detail', [
             'image' => $image
         ]);
+    }
+
+    public function delete($id) {
+        $user = \Auth::user();
+        $image = Image::find($id); //Retorna el objeto con el id especificado
+
+        //Sacar los likes y los comentarios antes de eliminar una imagen (Esto es para prevenir el mensaje de bd.. no se ha podido borrar debido a que hay registros asociados)
+        //Integrudad referencial no dejará eliminar si existen registros en la tabla de likes y comentarios
+        $comments = Comment::where('image_id', $id)->get(); //Retorna todos los comentarios asociados a la imagen
+        $likes = Like::where('image_id', $id)->get(); //Retorna todos los likes asociados a la imagen
+
+        if($user && $image && $image->user->id == $user->id) { //Si el user autenticado es igual al user id de la imagen entonces pasaremos a eliminar dicha imagen
+            //Eliminar comentarios 
+            if($comments && $comments >= '1') {
+                foreach($comments as $comment) {
+                    $comment->delete();
+                }
+            }
+
+            //Eliminar likes
+
+            if($likes && $likes >= '1') {
+                foreach($likes as $like) {
+                    $like->delete();
+                }
+            }
+
+            //Eliminar ficheros asociados de imagen guardados en el storage
+            Storage::disk('images')->delete($image->image_path);
+
+
+            //Eliminar registro de la imagen
+
+            $image->delete();
+
+            $message = ['message' => 'La imagen ha sido eliminada correctamente'];
+        }else {
+            $message = ['message' => 'La imagen no pudo ser eliminada'];
+        }
+
+        return redirect()->route('home')->with($message);
+
     }
 }

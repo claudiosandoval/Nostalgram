@@ -68,6 +68,9 @@ Route::post('/image/save', 'ImageController@publicar')->name('image.save'); //Ru
 Route::get('/image/{filename}', 'ImageController@getImage')->name('get.publicacion'); //Obtener imagen para mostrar en las vistas mediante el nombre de ruta de la imagen (revisar controlador)
 Route::get('/imagen/{id}', 'ImageController@detail')->name('image.detail'); //Retorna la vista de detalle de la imagen
 
+//Gestionar publicacion
+Route::get('/image/delete/{id}', 'ImageController@delete')->name('image.delete'); //Eliminar una foto
+
 //Comentarios
 Route::post('/comment/save', 'CommentsController@saveComment')->name('comment.save'); //Guarda un comentario
 Route::get('/comment/delete/{id}', 'CommentsController@deleteComment')->name('comment.delete'); //Elimina un comentario

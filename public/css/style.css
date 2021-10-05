@@ -218,6 +218,25 @@ textarea {
     float: right;
 }
 
+.modal_detail_publicacion ul{
+    list-style: none;
+    padding-left: 0px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.modal_detail_publicacion ul li{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+.modal_detail_publicacion ul li:nth-child(2) {
+    border-bottom: none;
+}
+
+.modal_detail_publicacion a {
+    font-size: 16px;
+    text-decoration: none;
+}
 /* Perfil */
 
 .perfil .col-4 {
@@ -258,6 +277,25 @@ textarea {
     padding: 5px;
     display: inline-block;
     font-weight: bold;
+}
+
+.container_publicacion {
+    position: relative;
+}
+
+.container_publicacion .ver_publicacion {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    
+    width: 94%;
+    object-fit: cover;
+    height: 14vw;
+    color: transparent;
+}
+
+.container_publicacion .ver_publicacion:hover {
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Media querys */
