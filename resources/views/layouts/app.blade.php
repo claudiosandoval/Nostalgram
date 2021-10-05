@@ -9,6 +9,9 @@
 
     <title>{{ config('app.name', 'Nostalgram') }}</title>
 
+    <!-- favicon -->
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/main.js') }}"></script>
