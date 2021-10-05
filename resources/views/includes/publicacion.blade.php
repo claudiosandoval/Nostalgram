@@ -48,7 +48,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <ul>
-                            <li><a href="">Editar publicación</a></li>
+                            <li><a href="{{ route('image.edit', ['id' => $image->id]) }}">Editar publicación</a></li>
                             <!-- <li><a href="{{ route('image.delete', ['id' => $image->id]) }}" class="text-danger">Borrar Publicación</a></li> -->
                             <li><a href="" data-toggle="modal" data-target="#modal_advertencia{{ $image->id }}" class="text-danger">Borrar publicación</a></li>
                         </ul>

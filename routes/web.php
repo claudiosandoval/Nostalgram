@@ -70,6 +70,8 @@ Route::get('/imagen/{id}', 'ImageController@detail')->name('image.detail'); //Re
 
 //Gestionar publicacion
 Route::get('/image/delete/{id}', 'ImageController@delete')->name('image.delete'); //Eliminar una foto
+Route::get('/image/edit/{id}', 'ImageController@edit')->name('image.edit'); //Editar una foto
+Route::post('/image/update', 'ImageController@update')->name('image.update'); //Actualizar la foto
 
 //Comentarios
 Route::post('/comment/save', 'CommentsController@saveComment')->name('comment.save'); //Guarda un comentario

@@ -118,4 +118,55 @@ class ImageController extends Controller
         return redirect()->route('home')->with($message);
 
     }
+
+    public function edit($id) {
+        $user = \Auth::user();
+        $image = Image::find($id);
+
+        if($user && $image && $image->user->id == $user->id) {
+            return view('image.edit', [
+                'image' => $image
+            ]);
+        }else {
+            return redirect()->route('home');
+        }
+    }
+
+    public function update(Request $request) {
+        //validar los campos 
+        $validate = $this->validate($request, [
+            'description' => 'required',
+            'image_path' => 'file|mimes:jpeg,png,jpg' //La tuberia sirve para concatenar mas validaciones
+            // 'image_path' => 'required|image' //Automaticamente la regla de validacion image de laravel valida que solo se puedan ingresar imagenes
+        ]);
+
+        $image_id = $request->input('image_id');
+        $description = $request->input('description');
+        $image_path = $request->file('image_path');
+
+
+        //conseguir objeto imagen
+        $image = Image::find($image_id);
+        $image->description = $description;
+
+        
+        if($image_path) {
+            $image_path_name = time().$image_path->getClientOriginalName();
+            Storage::disk('images')->put($image_path_name, File::get($image_path)); //Agregamos la imagen al storage y con file metodo get lo captura y lo mueve a la carpeta storage
+            $image->image_path = $image_path_name;
+        }
+
+        //Actualizar registro 
+
+        $image->update();
+
+        return redirect()->route('image.detail', ['id' => $image_id])
+                        ->with(['message' => 'La publicacion se ha actualizado correctamente']);
+
+
+
+        // var_dump($image_id);
+        // var_dump($description);
+        // die();
+    }
 }
