@@ -16,8 +16,18 @@ class UserController extends Controller
         $this->middleware('auth'); //
     }
 
-    public function index() { //Funcion que retorna todos los usuarios de la base de datos
-        $users = User::orderBy('id', 'desc')->paginate(5);
+    public function index($search = null) { //Funcion que retorna todos los usuarios de la base de datos
+        if(!empty($search)) {
+            $users = User::where('nick', 'LIKE', '%'.$search.'%')
+                         ->orWhere('name', 'LIKE', '%'.$search.'%')
+                         ->orWhere('surname', 'LIKE', '%'.$search.'%')
+                         ->orderBy('id', 'desc')
+                         ->paginate(5);
+        }else {
+            $users = User::orderBy('id', 'desc')->paginate(5);
+        }
+
+
 
         return view('user.index', ['users' => $users]);
     }

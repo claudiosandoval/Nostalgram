@@ -81,5 +81,11 @@ window.addEventListener("load", function() {
     //Invocamos las funciones like y dislike
     like();
     dislike();
+
+    //BUSCADOR 
+
+    $('#buscador').submit(function(e) {
+        $(this).attr('action', url + 'user/index/' + $('#buscar').val()) //Modificamos la ruta con el nuevo valor ingresado en el input
+    })
     
 });

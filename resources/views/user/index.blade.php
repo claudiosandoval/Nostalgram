@@ -4,7 +4,14 @@
 <div class="container">
     <div class="row perfil_usuario justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-secondary">Usuarios registrados</h2>
+            <div class="buscador mt-3">
+                <h2 class="text-secondary titulo_buscador">Usuarios registrados</h2>
+                <form class="form-inline my-2 my-lg-0 buscador_usuarios" method="GET" action="{{ route('user.index') }}" id="buscador"> 
+                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Buscar" id="buscar">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                </form> 
+            </div>
+            <div class="clearfix"></div>
             <hr>
             @foreach($users as $user)
             <div class="row perfil_usuario justify-content-center all_users">

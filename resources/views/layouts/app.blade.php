@@ -67,7 +67,7 @@
                                 <a class="nav-link" href="{{ route('image.public') }}">Subir imagen</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{ route('user.index') }}">Usuarios</a>
+                                <a class="nav-link" href="{{ route('user.index') }}">Buscar</a>
                             </li>
                             <li>
                                 <div class="avatar-nav">

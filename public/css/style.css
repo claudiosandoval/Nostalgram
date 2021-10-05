@@ -326,11 +326,36 @@ textarea {
     font-weight: bold;
 }
 
+/* Buscador de usuarios */
+
+.buscador .titulo_buscador{
+    float: left;
+}
+
+.buscador .buscador_usuarios {
+    float: left;
+    margin-left: 20px;
+}
+
 /* Media querys */
 
 @media (max-width: 992px) {
     .perfil_usuario img {
         width: 17vw;
+    }
+
+    .buscador .buscador_usuarios {
+        margin-left: 0px;
+    }
+
+    .buscador {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .navbar-nav .avatar-nav {
+        display: none;
     }
   }
 
