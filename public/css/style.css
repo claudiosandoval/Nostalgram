@@ -305,6 +305,27 @@ textarea {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* Css pagina user/index */
+
+.all_users .nick {
+    float: none !important;
+}
+
+.all_users .user_information {
+    float: left;
+    margin-left: 20px;
+}
+
+.all_users .user_information a {
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
+
+.all_users .user_information p {
+    color: #3F7FBF;
+    font-weight: bold;
+}
+
 /* Media querys */
 
 @media (max-width: 992px) {

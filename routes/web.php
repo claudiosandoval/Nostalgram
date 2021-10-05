@@ -57,6 +57,7 @@ Auth::routes(); //Routa creada con el comando php artisan make:auth (crea las ru
 Route::get('/', 'HomeController@index')->name('home'); //Ruta del inicio de la pagina
 
 //Configuracion de usuario
+Route::get('/user/index', 'UserController@index')->name('user.index');
 Route::get('/configuracion', 'UserController@config')->name('config'); //El name es el nombre de la ruta que es llamada en los enlaces como {{ route('nombre') }}
 Route::post('/user/update', 'UserController@update'); //Actualiza el usuario
 Route::get('/user/avatar/{filename}', 'UserController@getImage')->name('user.avatar'); //Obtiene la imagen para el avatar del perfil de usuario

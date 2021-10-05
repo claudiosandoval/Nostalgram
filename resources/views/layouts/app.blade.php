@@ -67,6 +67,9 @@
                                 <a class="nav-link" href="{{ route('image.public') }}">Subir imagen</a>
                             </li>
                             <li>
+                                <a class="nav-link" href="{{ route('user.index') }}">Usuarios</a>
+                            </li>
+                            <li>
                                 <div class="avatar-nav">
                                     @if(Auth::user()->image)
                                     <img src="{{ route('user.avatar', ['filename' => Auth::user()->image]) }}" alt="">   
