@@ -237,6 +237,13 @@ textarea {
     font-size: 16px;
     text-decoration: none;
 }
+
+.modal_detail_advertencia a{
+    position: relative !important;
+    top: 0px !important;
+    padding: .375rem .75rem !important;
+    color: white !important;
+}
 /* Perfil */
 
 .perfil .col-4 {

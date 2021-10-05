@@ -35,15 +35,15 @@
                     <!-- Comprobar si el usuario le dio like a la publicacion  -->
                     <?php $user_like = false ?>
                     @foreach($image->likes as $like)
-                        @if($like->user->id == Auth::user()->id)
-                            <?php $user_like = true ?>  
-                        @endif
+                    @if($like->user->id == Auth::user()->id)
+                    <?php $user_like = true ?>
+                    @endif
                     @endforeach
 
                     @if($user_like)
-                        <i class="bi bi-heart-fill heart_red btnlike" data-id="{{ $image->id }}"></i>
+                    <i class="bi bi-heart-fill heart_red btnlike" data-id="{{ $image->id }}"></i>
                     @else
-                        <i class="bi bi-heart-fill btndislike" data-id="{{ $image->id }}"></i>
+                    <i class="bi bi-heart-fill btndislike" data-id="{{ $image->id }}"></i>
                     @endif
                     <a href="{{ route('image.detail', ['id' => $image->id]) }}"><i class="bi bi-chat-fill"></i></a>
                     <!-- Comprobar si el usuario puede o no eliminar su publicacion  -->
@@ -57,8 +57,30 @@
                                 <div class="modal-body">
                                     <ul>
                                         <li><a href="">Editar publicación</a></li>
-                                        <li><a href="{{ route('image.delete', ['id' => $image->id]) }}" class="text-danger">Borrar Publicación</a></li>
+                                        <!-- <li><a href="{{ route('image.delete', ['id' => $image->id]) }}" class="text-danger">Borrar Publicación</a></li> -->
+                                        <li><a href="" data-toggle="modal" data-target="#modal_advertencia" class="text-danger">Borrar publicación</a></li>
                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Advertencia-->
+                    <div class="modal fade modal_detail_advertencia" id="modal_advertencia" tabindex="-1" aria-labelledby="modal_advertencia" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">¿Eliminar esta publicación?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="font-size:16px">Esta publicación se eliminará definitivamente.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <a type="button" href="{{ route('image.delete', ['id' => $image->id]) }}" class="btn btn-danger">Borrar</a>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +89,7 @@
                     <div class="me_gusta">
                         <p class="count_likes" id="likes{{ $image->id }}">{{ count($image->likes) }} Me gusta</p>
                     </div>
-                    <hr>        
+                    <hr>
                 </div>
                 <div class="descripcion">
                     <span class="nick"><a href="">{{ $image->user->nick }}</a></span>
@@ -78,7 +100,8 @@
                     @foreach($image->comments as $comment)
                     <div class="comment_user">
                         <span class="comment_nick">{{ $comment->user->nick }}: </span><span>{{ $comment->content }}</span>
-                        @if(Auth::check() && ($comment->user_id == Auth::user()->id || $comment->image->user_id == Auth::user()->id)) <!--  Auth::check() metodo que devuelve true si esta identificado / false -->
+                        @if(Auth::check() && ($comment->user_id == Auth::user()->id || $comment->image->user_id == Auth::user()->id))
+                        <!--  Auth::check() metodo que devuelve true si esta identificado / false -->
                         <button class="delete_comment" data-toggle="modal" data-target="#modalEliminarComentario{{ $comment->id }}"><i class="bi bi-trash-fill"></i></button>
                         @endif
                         <p class="user_comment_fecha">{{ FormatTime::LongTimeFilter($comment->created_at) }}</p>
@@ -87,16 +110,16 @@
                     <div class="modal fade" id="modalEliminarComentario{{ $comment->id }}" tabindex="-1" aria-labelledby="modalEliminarComentario" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Desea eliminar el comentario? {{ $comment->id }}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <a href="{{ route('comment.delete', ['id' => $comment->id]) }}" type="button" class="btn btn-danger">Eliminar</a>
-                            </div>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Desea eliminar el comentario? {{ $comment->id }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <a href="{{ route('comment.delete', ['id' => $comment->id]) }}" type="button" class="btn btn-danger">Eliminar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -107,17 +130,17 @@
                     <form action="{{ route('comment.save') }}" method="POST">
                         @csrf
                         <input type="hidden" name="image_id" value="{{ $image->id }}">
-                        <textarea class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" id=""  placeholder="Agrega un comentario..." ></textarea>
+                        <textarea class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" id="" placeholder="Agrega un comentario..."></textarea>
                         @if ($errors->has('content'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('content') }}</strong>
-                            </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('content') }}</strong>
+                        </span>
                         @endif
                         <button class="form-control" class="button_public_comment" type="submit">Publicar</button>
                     </form>
                 </div>
             </div>
-           
+
         </div>
     </div>
 </div>

@@ -28,15 +28,15 @@
         <!-- Comprobar si el usuario le dio like a la publicacion  -->
         <?php $user_like = false ?>
         @foreach($image->likes as $like)
-            @if($like->user->id == Auth::user()->id)
-                <?php $user_like = true ?>  
-            @endif
+        @if($like->user->id == Auth::user()->id)
+        <?php $user_like = true ?>
+        @endif
         @endforeach
 
         @if($user_like)
-            <i class="bi bi-heart-fill heart_red btnlike" data-id="{{ $image->id }}"></i>
+        <i class="bi bi-heart-fill heart_red btnlike" data-id="{{ $image->id }}"></i>
         @else
-            <i class="bi bi-heart-fill btndislike" data-id="{{ $image->id }}"></i>
+        <i class="bi bi-heart-fill btndislike" data-id="{{ $image->id }}"></i>
         @endif
         <a href="{{ route('image.detail', ['id' => $image->id]) }}"><i class="bi bi-chat-fill"></i></a>
         @if(Auth::user() && Auth::user()->id == $image->user->id)
@@ -49,29 +49,51 @@
                     <div class="modal-body">
                         <ul>
                             <li><a href="">Editar publicación</a></li>
-                            <li><a href="{{ route('image.delete', ['id' => $image->id]) }}" class="text-danger">Borrar Publicación</a></li>
+                            <!-- <li><a href="{{ route('image.delete', ['id' => $image->id]) }}" class="text-danger">Borrar Publicación</a></li> -->
+                            <li><a href="" data-toggle="modal" data-target="#modal_advertencia{{ $image->id }}" class="text-danger">Borrar publicación</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Modal Advertencia-->
+        <div class="modal fade modal_detail_advertencia" id="modal_advertencia{{ $image->id }}" tabindex="-1" aria-labelledby="modal_advertencia" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Eliminar esta publicación? {{ $image->id }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size:16px">Esta publicación se eliminará definitivamente.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <a type="button" href="{{ route('image.delete', ['id' => $image->id]) }}" class="btn btn-danger">Borrar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         @endif
-        <div class="me_gusta">  
+        <div class="me_gusta">
             <p class="count_likes" id="likes{{ $image->id }}">{{ count($image->likes) }} Me gusta</p>
         </div>
-        <hr>        
+        <hr>
     </div>
     <div class="descripcion">
         <span class="nick"><a href="{{ route('user.perfil', ['id' => $image->user->id]) }}">{{ $image->user->nick }}</a></span>
         <span class="texto">{{ $image->description }}</span>
         <a href="{{ route('image.detail', ['id' => $image->id]) }}" class="comentarios">
             @if(count($image->comments) == 1)
-            <p>Ver comentario</p>   
+            <p>Ver comentario</p>
             @elseif(count($image->comments) > 1)
             <p>Ver los {{ count($image->comments) }} comentarios</p>
             @elseif(count($image->comments) == 0)
             <p></p>
             @endif
-        </a>        
+        </a>
     </div>
 </div>
